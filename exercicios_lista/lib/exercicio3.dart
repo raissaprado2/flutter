@@ -42,7 +42,7 @@ class CardItem extends StatelessWidget {
         trailing: Icon(Icons.arrow_forward),
         onTap: () {
           // Ação quando o item é clicado
-          print('Item $index clicado.');
+         
         },
       ),
     );
