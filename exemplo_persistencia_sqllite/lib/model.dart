@@ -1,37 +1,36 @@
-class ContactModel {
+class ContatoModel {
+  //atributos
   int id;
-  String name;
+  String nome;
   String email;
-  String phone;
-  String addressLinel;
-
-
-ContactModel ({
-required this.id,
-required this.name,
-required this.email,
-required this.phone,
-required this.addressLinel,
-});
-}
-// Método para converter um contato para um mapa (para salvar no banco de dados)
+  String telefone;
+  String endereco;
+  //construtor
+  ContatoModel({
+    required this.id,
+    required this.nome,
+    required this.email,
+    required this.telefone,
+    required this.endereco,
+  });
+  //mapeamento
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'name': name,
+      'nome': nome,
       'email': email,
-      'phone': phone,
-      'addressLine1': addressLine1,
+      'telefone': telefone,
+      'endereco': endereco,
     };
   }
 
-  // Método de fábrica para criar um objeto ContactModel a partir de um mapa (para ler do banco de dados)
-  factory ContactModel{required phone}{required addressLine1}.fromMap(Map<String, dynamic> map) {
-    return ContactModel(
+  factory ContatoModel.fromMap(Map<String, dynamic> map) {
+    return ContatoModel(
       id: map['id'],
-      name: map['name'],
+      nome: map['nome'],
       email: map['email'],
-      phone: map['phone'],
-      addressLine1: map['addressLine1'],
+      telefone: map['telefone'],
+      endereco: map['endereco'],
     );
   }
+}
