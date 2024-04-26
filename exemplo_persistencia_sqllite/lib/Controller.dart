@@ -1,5 +1,4 @@
 import 'package:exemplo_persistencia_sqllite/model.dart';
-import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
