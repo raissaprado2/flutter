@@ -15,5 +15,10 @@
         "nome" : "Mouse Pad",
         "preco":19.90,
         "catgoria": "acessórios"
+    },
+    {
+        "nome" : "casaco tux",
+        "preco":79.90,
+        "catgoria": "acessórios"
     }
 ]

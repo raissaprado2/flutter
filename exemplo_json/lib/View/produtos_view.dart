@@ -1,5 +1,6 @@
 import 'package:exemplo_json/Controller/produtos_controller.dart';
 import 'package:exemplo_json/Model/produtos_model.dart';
+import 'package:exemplo_json/View/produto_info_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -13,11 +14,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ProdutoController _controller = ProdutoController();
 
-  @override
-  void initState() {
-    _controller.loadProdutos();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _controller.loadProdutos();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +38,15 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) {
                           final produto = _controller.produtos[index];
                           return ListTile(
-                            title: Text(produto.nome),
-                            subtitle: Text(
-                                'Preço: ${produto.valor.toStringAsFixed(2)} - Categoria: ${produto.categoria}'),
-                          );
+                              leading: Image.asset(produto.foto),
+                              title: Text(produto.nome),
+                              subtitle: Text(
+                                  'Preço: ${produto.valor.toStringAsFixed(2)} - Categoria: ${produto.categoria}'),
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProdutosInfoScreen(
+                                          info: _controller.produtos[index]))));
                         },
                       );
                     } else {
