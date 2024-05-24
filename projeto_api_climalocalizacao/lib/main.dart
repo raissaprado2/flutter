@@ -1,53 +1,27 @@
 import 'package:flutter/material.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
 
-  @override
-  State<SearchScreen> createState() => _SearchScreenState();
+import 'View/favorites_screen.dart';
+import 'View/home_screen.dart';
+import 'View/search_screen.dart';
+
+void main(List<String> args) {
+  runApp(const MyApp());
 }
 
-class _SearchScreenState extends State<SearchScreen> {
-  TextEditingController _cityController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title:const Text("Search City"),
-      ),
-      body:
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child:Form(
-            key:_formKey,
-            child:Column(
-              children:[
-                TextFormField(
-                  controller: _cityController,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter City',
-                  ),
-                  validator: (value) {
-                    if (value!.trim().isEmpty) {
-                      return 'Please enter city';
-                    }
-                    return null;
-                  },
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    i
-                  },
-                  child: const Text('Search'),
-                )
-              ]
-            )
-          )
-        ),
-      )
+    return MaterialApp(
+      title: "Projeto Clima",
+      home: HomeScreen(),
+      routes: {
+        '/home': (context) => HomeScreen(),
+        '/search':(context) => SearchScreen(),
+        '/favorites': (context) => FavoriteScreen(),
+      },
     );
   }
 }

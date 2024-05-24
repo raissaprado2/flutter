@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:projeto_api_climalocalizacao/Controller/weather_controller.dart';
+
+import '../Model/city_db_model.dart';
+import 'citydetail_screen.dart';
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
@@ -10,6 +15,8 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _cityController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final WeatherController _controller = WeatherController();
+  final CityDbController _cityDbController = CityDbController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +45,62 @@ class _SearchScreenState extends State<SearchScreen> {
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          Navigator.pushNamed(context, routeName);
+                          _findCity(_cityController.text);
                         }
                       },
                       child: const Text('Search'),
-                    )
+                    ),
+                    const SizedBox(height: 20),
+                    Expanded(
+                        child: FutureBuilder(
+                            future: _cityDbController.getAllCities(),
+                            builder: (context, snapshot) {
+                              if (_cityDbController.getCities().isEmpty) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else {
+                                return ListView.builder(
+                                    itemCount:
+                                        _cityDbController.getCities().length,
+                                    itemBuilder: (context, index) {
+                                      final reversedIndex = _cityDbController.getCities().length-index-1;
+                                      return ListTile(
+                                        title: Text(_cityDbController
+                                            .getCities()[reversedIndex]
+                                            .cityName),
+                                        onTap: () {
+                                          _findCity(_cityDbController
+                                              .getCities()[reversedIndex]
+                                              .cityName);
+                                        },
+                                      );
+                                    });
+                              }
+                              
+                            }))
                   ]))),
         ));
+  }
+
+  Future<void> _findCity(String city) async {
+    if (await _controller.findCity(city)) {
+      CityDb db = CityDb(cityName: city, favoritesCities: 0);
+      _cityDbController.create(db); //obj da classe CityDb
+      //Mensagem snackbar
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('City found'), duration: Duration(seconds: 1)));
+      //Chamando a tela CityDetailsScreen
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => CityDetailsScreen(city: city)));
+      setState(() {_cityDbController.getCities().clear();});
+    } else {
+      _cityController.clear();
+      //Mensagem snackbar
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('City not found'), duration: Duration(seconds: 2)));
+      setState(() {});
+    }
   }
 }

@@ -1,4 +1,5 @@
 
+
 import '../Model/city_db_model.dart';
 import '../Service/city_db_service.dart';
 
@@ -25,6 +26,12 @@ class CityDbController {
     }
   }
   //create
-  Future<void> create(CityDb db) => _service.insertCity(db);
-
+  Future<void> create(CityDb db) async {
+    try {
+      await _service.insertCity(db);
+      print("inserted");
+    } catch (e) {
+      print(e);
+    }
+  }
 }
