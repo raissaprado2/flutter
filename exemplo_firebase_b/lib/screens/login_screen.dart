@@ -1,8 +1,6 @@
 import 'package:exemplo_firebase_b/services/auth_firebase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'todolist_screen.dart';
 
@@ -52,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/cadastro');
+                  Navigator.pushReplacementNamed(context, '/registro');
                 },
                 child: const Text('Cadastrar'),
               ),
@@ -66,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
       try {
         User? user = await _authFirebase.signIn(_emailController.text, _passwordController.text);
         if (user != null) {
-          Navigator.push(context, MaterialPageRoute(builder: TodolistScreen(user:user)));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> TodolistScreen(user: user)));
         }else{
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
