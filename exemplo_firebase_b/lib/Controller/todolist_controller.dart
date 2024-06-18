@@ -1,9 +1,6 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../Model/todolist_model.dart';
-
 
 class TodolistController { 
   //
@@ -27,7 +24,7 @@ class TodolistController {
     QuerySnapshot querySnapshot = await _firestore.collection('todolist')
     .where('userid', isEqualTo: userId).get();
     List<dynamic> result = querySnapshot.docs as List;
-    _list = result.map((doc)=>Todolist.fromMap(doc.data())).toList();
-  }cd 
+    _list = result.map((doc)=>Todolist.fromMap(doc.data(),doc.id)).toList();
+  }
 
 }

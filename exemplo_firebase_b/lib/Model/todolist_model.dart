@@ -18,7 +18,7 @@ class Todolist{
   //fromMap
   factory Todolist.fromMap(Map<String, dynamic> map, String doc) {
     return Todolist(
-      id: map['id'],
+      id: doc,
       titulo: map['titulo'],
       userId: map['userId'],
       timestamp: DateTime.parse(map['timestamp']),
