@@ -1,27 +1,21 @@
 class CityDb {
   //atributos
-  final int id;
+  int? id;
   final String cityName;
-  final bool favoritesCities;
+  int favoritesCities;
 
-  CityDb(
-      {required this.id,
-      required this.cityName,
-      required this.favoritesCities});
-  
+  CityDb({this.id, required this.cityName, required this.favoritesCities});
+
   //toMap
-  Map<String,dynamic> toMap() {
-    return {
-      'cityname': this.cityName,
-      'favoritescities': this.favoritesCities
-    };
+  Map<String, dynamic> toMap() {
+    return {'cityname': this.cityName, 'favoritescities': this.favoritesCities};
   }
+
   //fromMap
-  factory CityDb.fromMap(Map<String,dynamic> map){
+  factory CityDb.fromMap(Map<String, dynamic> map) {
     return CityDb(
-      id: map['id'],
-      cityName: map['cityname'],
-      favoritesCities: map['favoritescities']
-    );
+        id: map['id'],
+        cityName: map['cityname'],
+        favoritesCities: map['favoritescities']);
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:projeto_api_climalocalizacao/Controller/weather_controller.dart';
 
+import '../Controller/city_db_controller.dart';
 import '../Model/city_db_model.dart';
 import 'citydetail_screen.dart';
 
@@ -63,7 +64,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                     itemCount:
                                         _cityDbController.getCities().length,
                                     itemBuilder: (context, index) {
-                                      final reversedIndex = _cityDbController.getCities().length-index-1;
+                                      final reversedIndex =
+                                          _cityDbController.getCities().length -
+                                              index -
+                                              1;
                                       return ListTile(
                                         title: Text(_cityDbController
                                             .getCities()[reversedIndex]
@@ -76,7 +80,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                       );
                                     });
                               }
-                              
                             }))
                   ]))),
         ));
@@ -94,7 +97,9 @@ class _SearchScreenState extends State<SearchScreen> {
           context,
           MaterialPageRoute(
               builder: (context) => CityDetailsScreen(city: city)));
-      setState(() {_cityDbController.getCities().clear();});
+      setState(() {
+        _cityDbController.getCities().clear();
+      });
     } else {
       _cityController.clear();
       //Mensagem snackbar

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_api_clima_localizacao/Controller/weather_controller.dart';
+
+import '../Controller/weather_controller.dart';
 
 class CityDetailsScreen extends StatefulWidget {
   final String city;
@@ -19,40 +20,46 @@ class _CityDetailsScreenState extends State<CityDetailsScreen> {
         title: Text(widget.city),
       ),
       body: Padding(
-        padding: EdgeInsets.all(12),
-        child:Center(
-          child: FutureBuilder(
-            future: _controller.getFromWeatherService(widget.city), 
-            builder: (context,snapshot){
-              if(_controller.listWeather.isEmpty){
-                return CircularProgressIndicator();
-              }else{
-                return Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+          padding: EdgeInsets.all(12),
+          child: Center(
+            child: FutureBuilder(
+                future: _controller.getFromWeatherService(widget.city),
+                builder: (context, snapshot) {
+                  if (_controller.listWeather.isEmpty) {
+                    return CircularProgressIndicator();
+                  } else {
+                    return Column(
                       children: [
-                        Text(_controller.listWeather.last.city),
-                        //favorite icon
-                        IconButton(
-                          icon: const Icon(Icons.favorite_border),
-                          onPressed: (){
-                            //criar a função para favoritar
-                          },
-                        )
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(_controller.listWeather.last.city),
+                            //favorite icon
+                            IconButton(
+                              icon: const Icon(Icons.favorite_border),
+                              onPressed: () {
+                                //criar a função para favoritar
+                              },
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Text(_controller.listWeather.last.description),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Text((_controller.listWeather.last.temp - 273)
+                            .toStringAsFixed(2)),
+                        const SizedBox(
+                          height: 12,
+                        ),
                       ],
-                    ),
-                    const SizedBox(height: 12,),
-                    Text(_controller.listWeather.last.description),
-                    const SizedBox(height: 12,),
-                    Text((_controller.listWeather.last.temp-273).toStringAsFixed(2)),
-                    const SizedBox(height: 12,),
-                  ],
-                );
-              }
-            }),
-        )),
-      
+                    );
+                  }
+                }),
+          )),
     );
   }
 }

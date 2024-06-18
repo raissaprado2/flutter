@@ -1,30 +1,28 @@
+import '../Model/weather_model.dart';
+import '../Service/weather_service.dart';
 
-import '../Model/city_db_model.dart';
-import '../Service/city_db_service.dart';
+class WeatherController {
+  List<Weather> listWeather = [];
+  WeatherService _service = new WeatherService();
 
-class CityDbController {
-  //atributos
-  List<CityDb> _cities=[];
-  final CityDbService _service = CityDbService();
-  //get
-  List<CityDb> getCities() => _cities;
-  
   //métodos
-  Future<List<CityDb>> getAllCities() async {
-    try {
-      List<Map<String,dynamic>> maps = await _service.getAllCities();
-      for(Map<String,dynamic> map in maps){
-        _cities.add(CityDb.fromMap(map));
-      }
-      //_cities = maps.map<CityDb>((e) => CityDb.fromMap(e)).toList();
-      
-      return _cities;
-    } catch (e) {
-      print(e);
-      return _cities;
+  Future<void> getFromWeatherService(String city) async {
+    Weather weather = Weather.fromJson(await _service.getWeather(city));
+    listWeather.add(weather);
+  }
+
+  Future<void> getFromWeatherServiceLocation(double lat, double lon) async {
+    Weather weather =
+        Weather.fromJson(await _service.getWeatherByLocation(lat, lon));
+    listWeather.add(weather);
+  }
+
+  Future<bool> findCity(String city) async {
+    Weather weather = Weather.fromJson(await _service.getWeather(city));
+    if (weather.city.isNotEmpty) {
+      return true;
+    } else {
+      return false;
     }
   }
-  //create
-  Future<void> create(CityDb db) => _service.insertCity(db);
-
 }
