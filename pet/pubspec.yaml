@@ -1,0 +1,19 @@
+name: pet
+description: A new Flutter project
+
+# Versão do SDK e dependências
+environment:
+  sdk: ">=2.19.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8  # Aqui é o lugar correto para isso
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - assets/pitbull.jpg  # Caminho correto para a imagem nos assets
